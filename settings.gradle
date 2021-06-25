@@ -1,0 +1,2 @@
+rootProject.name = "MyTestApplicationHw4"
+include ':app'
