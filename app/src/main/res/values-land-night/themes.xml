@@ -12,9 +12,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@drawable/background_port_light</item>
+        <item name="android:windowBackground">@drawable/background_land_dark</item>
 
     </style>
+
     <style name="MyTextViewStyle" parent="@android:style/Widget.TextView">
         <item name="android:background">@color/textViewBackgroundColor</item>
         <item name="android:textColor">@color/textViewFontColor</item>

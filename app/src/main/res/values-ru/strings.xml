@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Calc</string>
+    <string name="app_name">калькулятор</string>
     <string name="_0">0</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
@@ -15,6 +16,6 @@
     <string name="minus">-</string>
     <string name="multiply">*</string>
     <string name="divide">/</string>
-    <string name="del">del</string>
-    <string name="calc">Calculate</string>
+    <string name="del">ст</string>
+    <string name="calc">Рассчитать</string>
 </resources>

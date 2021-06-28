@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!--here are added colors-->
+    <color name="textViewBackgroundColor">#FFFFFF</color>
+    <color name="textViewFontColor">#F26172</color>
+    <color name="buttonColor">#C4F1B8</color>
+    <color name="buttonFontColor">#F26172</color>
 </resources>
