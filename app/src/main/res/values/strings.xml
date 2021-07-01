@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Calc</string>
+    <string name="suggestion">Please, choose the style:  </string>
+    <string name="dark">Dark style  </string>
+    <string name="light">Light style  </string>
     <string name="_0">0</string>
     <string name="_1">1</string>
     <string name="_2">2</string>

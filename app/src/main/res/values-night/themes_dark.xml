@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="hack_land">
+        <item name="android:background">@drawable/background_land_dark</item>
+
+    </style>
+
+    <style name="hack_port">
+        <item name="android:background">@drawable/background_port_dark</item>
+    </style>
+
+    <style name="MyRadioButtonStyle" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:layout_marginTop">@dimen/button_text</item>
+        <item name="android:textSize">@dimen/button_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/textViewBackgroundColor</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/textViewFontColor</item>
+    </style>
+
+    <style name="MyTextViewStyle" parent="@android:style/Widget.TextView">
+        <item name="android:background">@color/textViewBackgroundColor</item>
+        <item name="android:textColor">@color/textViewFontColor</item>
+        <item name="android:textSize">@dimen/result_text</item>
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="MyButtonStyle" parent="@style/Widget.AppCompat.Button">
+        <item name="android:background">@color/buttonColor</item>
+        <item name="android:textColor">@color/buttonFontColor</item>
+        <item name="android:textSize">@dimen/button_text</item>
+        <item name="android:layout_margin">@dimen/margin_button</item>
+    </style>
+
+</resources>

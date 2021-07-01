@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">калькулятор</string>
+    <string name="suggestion">Пожалуйста, выберите стиль:  </string>
+    <string name="light">Светлый стиль  </string>
+    <string name="dark">Темный стиль  </string>
     <string name="_0">0</string>
     <string name="_1">1</string>
     <string name="_2">2</string>

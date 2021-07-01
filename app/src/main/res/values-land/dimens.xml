@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="view_text">30sp</dimen>
     <dimen name="result_text">40sp</dimen>
     <dimen name="button_text">20sp</dimen>
     <dimen name="margin_button">1.5dp</dimen>
