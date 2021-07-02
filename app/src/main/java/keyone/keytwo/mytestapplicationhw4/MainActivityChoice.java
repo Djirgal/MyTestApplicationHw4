@@ -6,16 +6,20 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.google.android.material.radiobutton.MaterialRadioButton;
 
+import static java.security.AccessController.getContext;
+
 public class MainActivityChoice extends AppCompatActivity{
 
     public Configuration configuration;
-    private RadioButton radioButton1, radioButton2;
+
+    public RadioButton radioButton1, radioButton2;
 
     // Имя настроек
     private static final String NameSharedPreference = "CHOICE";
@@ -26,39 +30,47 @@ public class MainActivityChoice extends AppCompatActivity{
     protected static final int MyLightStyle = 0;
     protected static final int MyDarkStyle = 1;
 
-    public void setRadioButton(RadioButton radioButton) {
-         radioButton.setChecked(true);
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        radioButton1 = findViewById(R.id.radioButtonLightStyle);
-        radioButton2 = findViewById(R.id.radioButtonDarkStyle);
+        setContentView(R.layout.activity_main_choice);
+
         //попробуем понять режим
         initMyRadioButtons();
         // Устанавливать тему надо только до установки макета активити
        // setTheme(getAppTheme(R.style.MyRadioButtonStyle));
-        setContentView(R.layout.activity_main_choice);
+
        // initThemeChooser();
     }
 
+    /*public void setRadioButton(RadioButton radioButton) {
+        radioButton.setChecked(true);
+    }*/
+
     private void initMyRadioButtons(){
-        int currentNightMode = configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        radioButton1 = findViewById(R.id.radioButtonLightStyle);
+
+        radioButton2 = findViewById(R.id.radioButtonDarkStyle);
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        Log.d("UI_MODE_NIGHT = ", String.valueOf(currentNightMode));
         switch (currentNightMode) {
             case Configuration.UI_MODE_NIGHT_NO:
                 // Night mode is not active, we're using the light theme
-                System.out.println("Сработало по UI_MODE_NIGHT_NO");
-                setRadioButton(radioButton1);
+                Log.d("UI_MODE_NIGHT = ", String.valueOf(currentNightMode));
+                radioButton1.setChecked(true);
                 break;
             case Configuration.UI_MODE_NIGHT_YES:
                 // Night mode is active, we're using dark theme
-                System.out.println("Сработало по UI_MODE_NIGHT_YES");
-                setRadioButton(radioButton2);
+                Log.d("UI_MODE_NIGHT = ", String.valueOf(currentNightMode));
+                radioButton2.setChecked(true);
                 break;
             default:
-                System.out.println("Сработало по дефолту");
-                setRadioButton(radioButton1);
+                Log.d("UI_MODE_NIGHT = ", String.valueOf(currentNightMode));
+                radioButton1.setChecked(true);
         }
     }
 
