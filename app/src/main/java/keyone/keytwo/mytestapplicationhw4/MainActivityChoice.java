@@ -17,114 +17,128 @@ import static java.security.AccessController.getContext;
 
 public class MainActivityChoice extends AppCompatActivity{
 
-    public Configuration configuration;
+    private final static String KEY = "CALCULATOR";
 
-    public RadioButton radioButton1, radioButton2;
+    private RadioButton radioButton1, radioButton2;
+    private byte rbToCheck;//1 - radioButton1, 2 - radioButton2
 
     // Имя настроек
-    private static final String NameSharedPreference = "CHOICE";
+    private static final String SHARED_PREF = "CHOICE";
 
     // Имя параметра в настройках
-    private static final String AppTheme = "APP_THEME";
-
-    protected static final int MyLightStyle = 0;
-    protected static final int MyDarkStyle = 1;
-
-
+    private static final String APP_THEME = "APP_THEME";
+    //ourCodeStyle:
+    protected static final int LIGHT_THEME = 0;//соответствует AppLightTheme
+    protected static final int DARK_THEME = 1;//соответствует AppDarkTheme
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Устанавливать тему надо только до установки макета активити
+        setTheme(getAppThemeByMode());
+        //установка макета с заранее выбранным стилем
         setContentView(R.layout.activity_main_choice);
 
-        //попробуем понять режим
-        initMyRadioButtons();
-        // Устанавливать тему надо только до установки макета активити
-       // setTheme(getAppTheme(R.style.MyRadioButtonStyle));
 
+        initMyRadioButtons();
+        //устаовка соответствющего радио-баттона
+        setRadioButtonChecked();
        // initThemeChooser();
     }
 
-    /*public void setRadioButton(RadioButton radioButton) {
-        radioButton.setChecked(true);
-    }*/
-
-    private void initMyRadioButtons(){
-
-        radioButton1 = findViewById(R.id.radioButtonLightStyle);
-
-        radioButton2 = findViewById(R.id.radioButtonDarkStyle);
-
-        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        Log.d("UI_MODE_NIGHT = ", String.valueOf(currentNightMode));
-        switch (currentNightMode) {
-            case Configuration.UI_MODE_NIGHT_NO:
-                // Night mode is not active, we're using the light theme
-                Log.d("UI_MODE_NIGHT = ", String.valueOf(currentNightMode));
+    public void setRadioButtonChecked() {
+        switch (rbToCheck){
+            case 1:
                 radioButton1.setChecked(true);
-                break;
-            case Configuration.UI_MODE_NIGHT_YES:
-                // Night mode is active, we're using dark theme
-                Log.d("UI_MODE_NIGHT = ", String.valueOf(currentNightMode));
+            case 2:
                 radioButton2.setChecked(true);
-                break;
             default:
-                Log.d("UI_MODE_NIGHT = ", String.valueOf(currentNightMode));
-                radioButton1.setChecked(true);
+                radioButton1.setChecked(false);
+                radioButton1.setChecked(false);
         }
     }
 
-    // Инициализация радиокнопок
-    private void initThemeChooser() {
-        initRadioButton(findViewById(R.id.radioButtonLightStyle), MyLightStyle);
-        initRadioButton(findViewById(R.id.radioButtonDarkStyle), MyDarkStyle);
+    private void initMyRadioButtons() {
 
-        RadioGroup rg = findViewById(R.id.radioButtons);
-        ((MaterialRadioButton)rg.getChildAt(getCodeStyle(MyLightStyle))).setChecked(true);
+        radioButton1 = findViewById(R.id.radioButtonLightStyle);
+        radioButton2 = findViewById(R.id.radioButtonDarkStyle);
+
+        initRadioButton(findViewById(R.id.radioButtonLightStyle), LIGHT_THEME);
+        initRadioButton(findViewById(R.id.radioButtonDarkStyle), DARK_THEME);
+        /*RadioGroup rg = findViewById(R.id.radioButtons);
+        ((MaterialRadioButton) rg.getChildAt(getCodeStyle(MyLightStyle))).setChecked(true);*/
     }
 
-    // Все инициализации кнопок очень похожи, поэтому создадим метод для переиспользования
     private void initRadioButton(View button, final int codeStyle){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RadioButton rb = (RadioButton) v;
+                switch (rb.getId()) {
+                    case R.id.radioButtonLightStyle:
+                        setTheme(codeStyleToStyleId(getCodeStyle(LIGHT_THEME)));
+                        break;
+                    case R.id.radioButtonDarkStyle:
+                        setTheme(codeStyleToStyleId(getCodeStyle(DARK_THEME)));
+                        break;
+                    default:
+                        setTheme(codeStyleToStyleId(getCodeStyle(LIGHT_THEME)));
+                }
                 // сохраним настройки
                 setAppTheme(codeStyle);
                 // пересоздадим активити, чтобы тема применилась
                 recreate();
+
             }
         });
     }
+    private int getAppThemeByMode() {//возвращает id стиля и сохраняет в rbToCheck какой радио-баттон должен быть установлен
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (currentNightMode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                // Night mode is not active, we're using the light theme
+                rbToCheck=1;
+                return codeStyleToStyleId(getCodeStyle(LIGHT_THEME));
+            case Configuration.UI_MODE_NIGHT_YES:
+                // Night mode is active, we're using dark theme
+                rbToCheck=2;
+                return codeStyleToStyleId(getCodeStyle(DARK_THEME));
+            default:
+                return codeStyleToStyleId(getCodeStyle(LIGHT_THEME));
+        }
+    }
 
     private int getAppTheme(int codeStyle) {
+
         return codeStyleToStyleId(getCodeStyle(codeStyle));
     }
 
     // Чтение настроек, параметр «тема»
     private int getCodeStyle(int codeStyle){
         // Работаем через специальный класс сохранения и чтения настроек
-        SharedPreferences sharedPref = getSharedPreferences(NameSharedPreference, MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
         //Прочитать тему, если настройка не найдена - взять по умолчанию
-        return sharedPref.getInt(AppTheme, codeStyle);
+        return sharedPref.getInt(APP_THEME, codeStyle);
     }
 
     // Сохранение настроек
     private void setAppTheme(int codeStyle) {
-        SharedPreferences sharedPref = getSharedPreferences(NameSharedPreference, MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
         // Настройки сохраняются посредством специального класса editor.
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(AppTheme, codeStyle);
+        editor.putInt(APP_THEME, codeStyle);
         editor.apply();
     }
 
-    private int codeStyleToStyleId(int codeStyle){
-        switch(codeStyle){
-            case MyLightStyle:
-                return 0;
-            case MyDarkStyle:
-                return 1;
+    private int codeStyleToStyleId(int ourCodeStyle){
+        switch(ourCodeStyle){
+            case LIGHT_THEME:
+                return R.style.AppLightTheme;
+            case DARK_THEME:
+                return R.style.AppDarkTheme;
             default:
-                return 0;
+                return R.style.AppDarkTheme;
         }
     }
 

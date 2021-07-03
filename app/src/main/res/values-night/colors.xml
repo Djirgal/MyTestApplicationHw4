@@ -4,4 +4,7 @@
     <color name="textViewFontColor">#FFFFFF</color>
     <color name="buttonColor">#FF6200EE</color>
     <color name="buttonFontColor">#FFFFFF</color>
+    <color name="radio_color1">#FFC3FE</color>
+    <color name="radio_color2">#DA04D6</color>
+
 </resources>

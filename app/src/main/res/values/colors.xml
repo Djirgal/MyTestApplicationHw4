@@ -11,5 +11,7 @@
     <color name="textViewBackgroundColor">#FFFFFF</color>
     <color name="textViewFontColor">#F26172</color>
     <color name="buttonColor">#C4F1B8</color>
-    <color name="buttonFontColor">#F26172</color>
+    <color name="buttonFontColor"></color>
+    <color name="radio_color1">#FFC3FE</color>
+    <color name="radio_color2">#DA04D6</color>
 </resources>

@@ -33,18 +33,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/light"
-            style="@style/MyRadioButtonStyle"
-            />
+            style="@style/MyRadioButtonStyle"/>
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioButtonDarkLight"
+            android:id="@+id/radioButtonDarkStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/dark"
             android:textColor="@color/purple_700"
             style="@style/MyRadioButtonStyle"/>
     </RadioGroup>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
